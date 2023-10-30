@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,4 +31,16 @@ public class Movie {
 
     @Column(name = "release_date")
     Date releaseDate;
+
+    @ManyToMany (cascade =  {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+@JoinTable(name = "movie_actor",schema = "fsweb",joinColumns = @JoinColumn(name = "movie_id"),
+        inverseJoinColumns = @JoinColumn(name = "actor_id"))
+  private   List<Actor> actorList;
+    public void addActor(Actor actor){
+        if (actorList == null){
+            actorList = new ArrayList<>();
+        }
+        actorList.add(actor);
+
+    }
 }
