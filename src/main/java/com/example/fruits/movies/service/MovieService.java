@@ -12,4 +12,5 @@ public interface MovieService {
     Movie save(Movie movie);
 
     Movie delete(int id);
+
 }
